@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldWave & AXIO GOLD EA Evaluation Report | TMGM Official Partnership</title>
+
+<!-- Google Fonts: Inter -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --tmgm-navy: #001b4d;
+    --tmgm-navy-deep: #00081f;
+    --tmgm-navy-mid: #04153f;
+    --tmgm-navy-light: #0a2a6a;
+    --tmgm-white: #ffffff;
+    --tmgm-green: #00d96e;
+    --tmgm-green-soft: rgba(0, 217, 110, 0.5);
+    --tmgm-red: #e63946;
+    --tmgm-gold: #d4a437;
+    --text-on-dark: #e8ecf5;
+    --text-muted: #9fb0cf;
+    --text-subtle: #6c7fa3;
+    --card-bg: rgba(255, 255, 255, 0.035);
+    --card-border: rgba(255, 255, 255, 0.10);
+    --grid-line: rgba(159, 176, 207, 0.04);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--tmgm-navy-deep);
+    color: var(--text-on-dark);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.75;
+    font-size: 16px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* ===== Trading chart grid background ===== */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: -1px -1px;
+    pointer-events: none;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 90%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 90%);
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(0, 217, 110, 0.10), transparent 38%),
+      radial-gradient(circle at 88% 92%, rgba(230, 57, 70, 0.07), transparent 38%),
+      radial-gradient(ellipse at 50% 30%, rgba(10, 42, 106, 0.55), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  /* ===== Animations ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes breathGlow {
+    0%, 100% {
+      box-shadow:
+        0 0 0 0 rgba(0, 217, 110, 0.45),
+        0 8px 24px rgba(0, 217, 110, 0.25),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    }
+    50% {
+      box-shadow:
+        0 0 0 14px rgba(0, 217, 110, 0),
+        0 8px 36px rgba(0, 217, 110, 0.55),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.30);
+    }
+  }
+
+  @keyframes scrollLine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .reveal {
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .reveal-1 { animation-delay: 0.05s; }
+  .reveal-2 { animation-delay: 0.15s; }
+  .reveal-3 { animation-delay: 0.25s; }
+  .reveal-4 { animation-delay: 0.35s; }
+  .reveal-5 { animation-delay: 0.45s; }
+
+  section {
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.1s;
+    margin-bottom: 64px;
+  }
+
+  section:nth-of-type(2) { animation-delay: 0.18s; }
+  section:nth-of-type(3) { animation-delay: 0.26s; }
+  section:nth-of-type(4) { animation-delay: 0.34s; }
+  section:nth-of-type(5) { animation-delay: 0.42s; }
+
+  /* ===== Hero ===== */
+  .hero {
+    text-align: center;
+    padding: 64px 24px 56px;
+    border-bottom: 1px solid var(--card-border);
+    margin-bottom: 56px;
+    position: relative;
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 30%;
+    right: 30%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--tmgm-green), transparent);
+  }
+
+  .tmgm-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .tmgm-logo .wordmark {
+    font-family: 'Inter', sans-serif;
+    font-size: 46px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--tmgm-white);
+    line-height: 1;
+  }
+
+  .tmgm-logo .accent-dot {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    background: var(--tmgm-green);
+    margin-left: 3px;
+    transform: translateY(8px);
+    box-shadow: 0 0 16px rgba(0, 217, 110, 0.6);
+  }
+
+  .tmgm-tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 8px;
+    font-weight: 500;
+  }
+
+  .partnership-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 18px;
+    padding: 10px 22px;
+    border: 1px solid var(--tmgm-green);
+    border-radius: 24px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--tmgm-green);
+    text-transform: uppercase;
+    font-weight: 600;
+    background: rgba(0, 217, 110, 0.06);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .partnership-badge::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--tmgm-green);
+    border-radius: 50%;
+    animation: shimmer 2s ease-in-out infinite;
+    box-shadow: 0 0 8px var(--tmgm-green);
+  }
+
+  .hero h1 {
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--tmgm-white);
+    margin: 18px 0 12px;
+    letter-spacing: 1.5px;
+    line-height: 1.3;
+  }
+
+  .hero .subtitle {
+    font-size: 17px;
+    color: var(--text-muted);
+    margin: 0;
+    letter-spacing: 1.5px;
+    font-weight: 300;
+  }
+
+  .hero .report-meta {
+    margin-top: 32px;
+    font-size: 12px;
+    color: var(--text-subtle);
+    letter-spacing: 4px;
+    font-weight: 500;
+    font-family: 'Inter', monospace;
+  }
+
+  /* ===== Sections ===== */
+  h2.section-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--tmgm-white);
+    padding-left: 16px;
+    margin: 0 0 28px;
+    letter-spacing: 2px;
+    position: relative;
+  }
+
+  h2.section-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    bottom: 6px;
+    width: 4px;
+    background: linear-gradient(180deg, var(--tmgm-green), rgba(0, 217, 110, 0.2));
+    border-radius: 2px;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--tmgm-white);
+    margin: 32px 0 14px;
+    letter-spacing: 1px;
+  }
+
+  h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--tmgm-green);
+    margin: 20px 0 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  p { margin: 12px 0; }
+
+  ul, ol {
+    padding-left: 22px;
+    margin: 12px 0;
+  }
+
+  li { margin: 6px 0; }
+
+  strong {
+    color: var(--tmgm-white);
+    font-weight: 600;
+  }
+
+  /* ===== Card ===== */
+  .card {
+    position: relative;
+    background: var(--card-bg);
+    backdrop-filter: blur(14px) saturate(130%);
+    -webkit-backdrop-filter: blur(14px) saturate(130%);
+    border-radius: 14px;
+    padding: 26px 30px;
+    margin: 22px 0;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.02) 50%, rgba(0, 217, 110, 0.15));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .card.featured::before {
+    background: linear-gradient(135deg, var(--tmgm-green) 0%, rgba(0, 217, 110, 0.15) 35%, rgba(255, 255, 255, 0.08) 70%);
+  }
+
+  .card.warning::before {
+    background: linear-gradient(135deg, var(--tmgm-red) 0%, rgba(230, 57, 70, 0.15) 35%, rgba(255, 255, 255, 0.08) 70%);
+  }
+
+  .card.featured {
+    background: linear-gradient(135deg, rgba(0, 217, 110, 0.05), rgba(0, 27, 77, 0.3));
+  }
+
+  .card.warning {
+    background: linear-gradient(135deg, rgba(230, 57, 70, 0.04), rgba(0, 27, 77, 0.3));
+  }
+
+  /* ===== Partnership Block ===== */
+  .partnership-block {
+    position: relative;
+    background: linear-gradient(135deg, var(--tmgm-navy-light) 0%, var(--tmgm-navy-deep) 100%);
+    border-radius: 18px;
+    padding: 36px;
+    margin: 32px 0;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .partnership-block::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--tmgm-green), rgba(0, 217, 110, 0.2) 40%, rgba(212, 164, 55, 0.3) 70%, var(--tmgm-green));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .partnership-block::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(0, 217, 110, 0.18), transparent 60%);
+    pointer-events: none;
+  }
+
+  .partnership-block h3 {
+    color: var(--tmgm-green);
+    font-size: 22px;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    letter-spacing: 1.5px;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 26px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .benefit-item {
+    position: relative;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .benefit-item:hover {
+    transform: translateY(-3px);
+    border-color: var(--tmgm-green);
+  }
+
+  .benefit-item .label {
+    color: var(--tmgm-green);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .benefit-item .value {
+    color: var(--tmgm-white);
+    font-size: 24px;
+    font-weight: 800;
+    margin: 10px 0;
+    letter-spacing: 1px;
+  }
+
+  .benefit-item .desc {
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  /* ===== CTA Button ===== */
+  .cta-btn {
+    display: inline-block;
+    position: relative;
+    background: linear-gradient(135deg, var(--tmgm-green) 0%, #00b85e 100%);
+    color: var(--tmgm-navy-deep);
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    padding: 16px 38px;
+    border-radius: 10px;
+    text-decoration: none;
+    margin-top: 22px;
+    letter-spacing: 1.5px;
+    font-size: 15px;
+    animation: breathGlow 2.8s ease-in-out infinite;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .cta-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: scrollLine 3s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+  }
+
+  .cta-link {
+    word-break: break-all;
+    color: var(--tmgm-green);
+    font-size: 13px;
+    margin-top: 14px;
+    display: block;
+    font-family: 'Inter', monospace;
+    opacity: 0.85;
+    letter-spacing: 0.5px;
+  }
+
+  .cta-link:hover { opacity: 1; }
+
+  /* ===== Pricing ===== */
+  .pricing-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin: 22px 0;
+  }
+
+  .price-card {
+    position: relative;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 14px;
+    padding: 28px;
+    text-align: center;
+    border: 1px solid transparent;
+  }
+
+  .price-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(0, 217, 110, 0.6), rgba(255, 255, 255, 0.05) 50%, rgba(212, 164, 55, 0.3));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .price-card .name {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--tmgm-white);
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+  }
+
+  .price-card .original {
+    text-decoration: line-through;
+    color: var(--text-subtle);
+    font-size: 15px;
+  }
+
+  .price-card .discount {
+    color: var(--tmgm-green);
+    font-size: 36px;
+    font-weight: 900;
+    margin: 8px 0;
+    letter-spacing: 1px;
+    text-shadow: 0 0 24px rgba(0, 217, 110, 0.3);
+  }
+
+  .price-card .savings {
+    color: var(--tmgm-red);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  .price-card .note {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-top: 12px;
+    line-height: 1.6;
+  }
+
+  /* ===== Comparison cards ===== */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 28px 0;
+  }
+
+  .compare-card {
+    position: relative;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.25));
+    backdrop-filter: blur(14px) saturate(130%);
+    -webkit-backdrop-filter: blur(14px) saturate(130%);
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid transparent;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .compare-card:hover { transform: translateY(-4px); }
+
+  .compare-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(0, 217, 110, 0.5), rgba(255, 255, 255, 0.08) 50%, rgba(0, 217, 110, 0.15));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .compare-card.right::before {
+    background: linear-gradient(135deg, rgba(212, 164, 55, 0.5), rgba(255, 255, 255, 0.08) 50%, rgba(212, 164, 55, 0.15));
+  }
+
+  .compare-card .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--tmgm-green);
+    padding: 4px 10px;
+    background: rgba(0, 217, 110, 0.08);
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+
+  .compare-card.right .tag {
+    color: var(--tmgm-gold);
+    background: rgba(212, 164, 55, 0.08);
+  }
+
+  .compare-card h3 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+
+  .compare-card .sub {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 22px;
+    letter-spacing: 0.5px;
+  }
+
+  .compare-card .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--card-border);
+    font-size: 14px;
+  }
+
+  .compare-card .row:last-of-type { border-bottom: none; }
+
+  .compare-card .row .k {
+    color: var(--text-subtle);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .compare-card .row .v {
+    color: var(--tmgm-white);
+    font-size: 14px;
+    text-align: right;
+    font-weight: 500;
+  }
+
+  .compare-shared {
+    margin-top: 8px;
+    padding: 20px;
+    text-align: center;
+    background: rgba(0, 217, 110, 0.04);
+    border-radius: 12px;
+    border: 1px dashed rgba(0, 217, 110, 0.25);
+  }
+
+  .compare-shared .label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--tmgm-green);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .compare-shared .content {
+    color: var(--text-on-dark);
+    font-size: 14px;
+  }
+
+  /* ===== Table ===== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: rgba(255, 255, 255, 0.025);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+  }
+
+  th, td {
+    padding: 14px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--card-border);
+    font-size: 14px;
+  }
+
+  th {
+    background: rgba(0, 217, 110, 0.06);
+    color: var(--tmgm-green);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 12px;
+    border-bottom: 1px solid rgba(0, 217, 110, 0.3);
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+  /* ===== Quote ===== */
+  blockquote {
+    border-left: 3px solid var(--tmgm-green);
+    padding: 18px 24px;
+    margin: 24px 0;
+    background: rgba(0, 217, 110, 0.04);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--tmgm-white);
+    border-radius: 0 10px 10px 0;
+    font-size: 15px;
+    line-height: 1.8;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    text-align: center;
+    padding: 48px 20px 24px;
+    border-top: 1px solid var(--card-border);
+    color: var(--text-subtle);
+    font-size: 13px;
+    margin-top: 64px;
+    position: relative;
+  }
+
+  .footer::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 35%;
+    right: 35%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--tmgm-green), transparent);
+  }
+
+  .footer .disclaimer {
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.8;
+    font-size: 12px;
+  }
+
+  .accent-line {
+    display: inline-block;
+    width: 32px;
+    height: 2px;
+    background: var(--tmgm-green);
+    margin: 0 10px;
+    vertical-align: middle;
+  }
+
+  @media (max-width: 720px) {
+    .container { padding: 28px 16px 60px; }
+    .hero h1 { font-size: 28px; }
+    .tmgm-logo .wordmark { font-size: 36px; }
+    .benefits-grid,
+    .pricing-row,
+    .compare-grid { grid-template-columns: 1fr; }
+    h2.section-title { font-size: 22px; }
+    .partnership-block { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="tmgm-logo reveal reveal-1">
+      <div>
+        <div class="wordmark">TMGM<span class="accent-dot"></span></div>
+        <div class="tmgm-tagline">TRADE THE WORLD</div>
+      </div>
+    </div>
+
+    <div class="partnership-badge reveal reveal-2">Official Partnership Program</div>
+
+    <h1 class="reveal reveal-3">GoldWave &amp; AXIO GOLD<br>EA Evaluation Report</h1>
+    <p class="subtitle reveal reveal-4">AI Adaptive × Market Structure · A Structural Review of Two Trading Systems</p>
+
+    <div class="report-meta reveal reveal-5">CONFIDENTIAL · INSTITUTIONAL REPORT · 2026 EDITION</div>
+  </header>
+
+  <!-- ===== I. Overview ===== -->
+  <section>
+    <h2 class="section-title">I. Report Overview</h2>
+    <p>This report provides a structural introduction and comparative analysis of two XAUUSD (Gold) automated trading systems developed in cooperation with our team — <strong>GoldWave (AI Adaptive)</strong> and <strong>AXIO GOLD (Market Structure)</strong>.</p>
+
+    <p>Both EAs have been tested under real conditions on the <strong>TMGM platform</strong>, demonstrating consistent results across execution latency, spread cost, and slippage. Based on these stable testing results, our team has now established an <strong>official partnership with TMGM</strong>, offering exclusive benefits for new clients who open a TMGM account and use our EAs (see Section VI).</p>
+
+    <p>This report is neither a profit guarantee nor investment advice. Its purpose is to help traders understand:</p>
+    <ul>
+      <li>The logical differences and design philosophies of both EAs</li>
+      <li>Why they perform consistently within TMGM's execution environment</li>
+      <li>Reasonable long-term return expectations and risk structure</li>
+    </ul>
+  </section>
+
+  <!-- ===== II. Developer Background ===== -->
+  <section>
+    <h2 class="section-title">II. Developer Background</h2>
+    <p>Both EAs are developed by a single lead engineer with <strong>over 16 years</strong> of real trading experience as a MetaTrader EA and indicator developer. The development philosophy emphasizes:</p>
+    <ul>
+      <li>No flashy short-term "explosion" marketing</li>
+      <li>No excessive parameter stacking</li>
+      <li>No overfitted historical curves</li>
+      <li>A clear focus on logically stable, risk-controlled systems that adapt across different market environments</li>
+    </ul>
+    <p>The two products approach the market from different angles — one leans toward <strong>"AI-assisted adaptive judgment"</strong>, the other toward <strong>"market structure recognition"</strong> — while sharing the same foundational principle: <em>stability before performance</em>.</p>
+  </section>
+
+  <!-- ===== III. GoldWave ===== -->
+  <section>
+    <h2 class="section-title">III. Product One: GoldWave (AI Adaptive)</h2>
+
+    <h3>3.1 Product Positioning</h3>
+    <p>GoldWave is an automated EA designed exclusively for XAUUSD (Gold) on <strong>MT5</strong>. Its defining feature is that <strong>the entry logic is not fixed</strong>. Instead of static indicator triggers, GoldWave uses AI-assisted adaptive decision logic to evaluate current market context in real time, then decides whether the moment is suitable to enter.</p>
+
+    <h3>3.2 Core Logic</h3>
+    <ul>
+      <li>Evaluates whether the current risk environment is suitable</li>
+      <li>Evaluates whether market conditions are worth participating in</li>
+      <li>During uncertain or high-risk periods, the system remains patient and waits</li>
+      <li>Entry criteria adapt as market behavior changes — they are not locked to one rigid rule set</li>
+    </ul>
+
+    <h3>3.3 Risk Management</h3>
+    <div class="card">
+      <ul style="margin:0;">
+        <li>No Martingale</li>
+        <li>No Grid</li>
+        <li>No Averaging Down</li>
+        <li>Each trade is an independent decision with clearly defined risk control</li>
+        <li>A fixed stop loss exists as a last line of defense for extreme market conditions</li>
+        <li>Under normal conditions, exits are managed by the EA's internal logic well before the stop loss is reached</li>
+      </ul>
+    </div>
+
+    <h3>3.4 Trade Frequency Philosophy</h3>
+    <p>The market moves every day, but not every day is worth trading. GoldWave prioritizes <strong>market quality over trade frequency</strong>. This disciplined restraint is key to controlling drawdowns and maintaining long-term stability.</p>
+
+    <h3>3.5 Backtesting vs. Live Trading</h3>
+    <p>GoldWave uses a news filter and dynamic risk control logic, parts of which rely on WebRequest — which <strong>cannot be fully reproduced in the Strategy Tester</strong>. Therefore:</p>
+    <ul>
+      <li>Traditional backtests cannot fully replicate live behavior</li>
+      <li>We do not rely on highly optimized backtest curves as proof of reliability</li>
+      <li>Real, long-term forward performance provides far more meaningful reference</li>
+    </ul>
+
+    <h3>3.6 Recommended Operating Parameters</h3>
+    <table>
+      <tr><th>Item</th><th>Recommendation</th></tr>
+      <tr><td>Platform</td><td>MT5</td></tr>
+      <tr><td>Timeframe</td><td>M1 (for monitoring granularity, not higher frequency)</td></tr>
+      <tr><td>Instrument</td><td>XAUUSD (Gold) only</td></tr>
+      <tr><td>Minimum Recommended Deposit</td><td>USD 500</td></tr>
+    </table>
+
+    <h3>3.7 Pricing & Future Adjustment</h3>
+    <div class="card featured">
+      <p style="margin-top:0;"><strong>Current Stage Price: USD 999</strong></p>
+      <p>This EA is currently offered at an <strong>early-stage price</strong>. Future price adjustments will be made based on sales progress and maintenance phases, with an expected increase of approximately <strong>USD 100 per stage</strong>, targeting an upper price of <strong>USD 1,899</strong> within this year.</p>
+    </div>
+  </section>
+
+  <!-- ===== IV. AXIO GOLD ===== -->
+  <section>
+    <h2 class="section-title">IV. Product Two: AXIO GOLD (Market Structure)</h2>
+
+    <h3>4.1 Product Positioning</h3>
+    <p>AXIO GOLD EA is an automated trading system built specifically for XAUUSD (Gold) on <strong>MT5</strong>. Its core logic differs from most conventional gold EAs:</p>
+    <ul>
+      <li>It is not a simple breakout system</li>
+      <li>It does not rely on static indicator triggers</li>
+      <li>It does not use rigid Buy Stop / Sell Stop placement logic</li>
+    </ul>
+
+    <h3>4.2 Core Logic</h3>
+    <p>AXIO GOLD focuses on:</p>
+    <ul>
+      <li><strong>Market Structure</strong></li>
+      <li><strong>Support and resistance zones</strong></li>
+      <li><strong>The strength and quality of price reactions</strong></li>
+      <li><strong>Whether the surrounding market environment is suitable for participation</strong></li>
+    </ul>
+    <p>The system evaluates whether a setup is meaningful before taking action, rather than trading merely because a fixed technical signal appears — resulting in a far more selective and structure-aware entry behavior.</p>
+
+    <h3>4.3 Risk Management</h3>
+    <div class="card">
+      <ul style="margin:0;">
+        <li>No Martingale</li>
+        <li>No dangerous grid expansion</li>
+        <li>No averaging down into losing trades</li>
+        <li>Each trade is treated as an independent decision</li>
+        <li>Risk parameters are clear, exits are fully managed by the system</li>
+      </ul>
+    </div>
+
+    <h3>4.4 Trade Frequency Philosophy</h3>
+    <p>The market moves every day, but not every move deserves participation. AXIO GOLD believes <strong>"quality outweighs quantity"</strong> — during unclear or unfavorable conditions, it chooses to wait. This selective behavior reduces unnecessary exposure and contributes to long-term stability.</p>
+
+    <h3>4.5 Backtesting vs. Live Trading</h3>
+    <p>AXIO GOLD uses adaptive logic and market-environment filtering, parts of which depend on real-time conditions that cannot be fully reproduced in historical testing. Therefore:</p>
+    <ul>
+      <li>Optimized historical curves should not be used as primary proof of reliability</li>
+      <li>Real forward performance under live market pressure carries far more meaningful reference value</li>
+    </ul>
+
+    <h3>4.6 Recommended Operating Parameters</h3>
+    <table>
+      <tr><th>Item</th><th>Recommendation</th></tr>
+      <tr><td>Platform</td><td>MT5</td></tr>
+      <tr><td>Timeframe</td><td>M1 (for execution granularity, not high frequency)</td></tr>
+      <tr><td>Instrument</td><td>XAUUSD (Gold) only</td></tr>
+    </table>
+
+    <h3>4.7 Pricing & Future Adjustment</h3>
+    <div class="card featured">
+      <p style="margin-top:0;"><strong>Current Stage Price: USD 699</strong></p>
+      <p>This EA is currently offered at an <strong>early-stage price</strong>. Future price adjustments will be made based on sales progress and maintenance phases, with an expected increase of approximately <strong>USD 100 per stage</strong>, targeting an upper price of <strong>USD 5,999</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ===== V. Comparison ===== -->
+  <section>
+    <h2 class="section-title">V. Core Comparison</h2>
+
+    <div class="compare-grid">
+      <div class="compare-card">
+        <span class="tag">SYSTEM · 01</span>
+        <h3>GoldWave</h3>
+        <p class="sub">AI Adaptive · AI-Assisted Decision Logic</p>
+
+        <div class="row">
+          <span class="k">Entry Logic</span>
+          <span class="v">AI-assisted dynamic<br>environment evaluation</span>
+        </div>
+        <div class="row">
+          <span class="k">Decision Style</span>
+          <span class="v">Adaptive / Contextual</span>
+        </div>
+        <div class="row">
+          <span class="k">Filtering</span>
+          <span class="v">Risk environment +<br>News filter (WebRequest)</span>
+        </div>
+        <div class="row">
+          <span class="k">Platform</span>
+          <span class="v">MT5</span>
+        </div>
+        <div class="row">
+          <span class="k">Timeframe</span>
+          <span class="v">M1</span>
+        </div>
+        <div class="row">
+          <span class="k">Identity</span>
+          <span class="v">Sentiment · Environment · Goalkeeper</span>
+        </div>
+      </div>
+
+      <div class="compare-card right">
+        <span class="tag">SYSTEM · 02</span>
+        <h3>AXIO GOLD</h3>
+        <p class="sub">Market Structure · Structure-Aware Entries</p>
+
+        <div class="row">
+          <span class="k">Entry Logic</span>
+          <span class="v">Market structure +<br>Key-zone reactions</span>
+        </div>
+        <div class="row">
+          <span class="k">Decision Style</span>
+          <span class="v">Selective / Structural</span>
+        </div>
+        <div class="row">
+          <span class="k">Filtering</span>
+          <span class="v">Market structure +<br>Reaction-strength filter</span>
+        </div>
+        <div class="row">
+          <span class="k">Platform</span>
+          <span class="v">MT5</span>
+        </div>
+        <div class="row">
+          <span class="k">Timeframe</span>
+          <span class="v">M1</span>
+        </div>
+        <div class="row">
+          <span class="k">Identity</span>
+          <span class="v">Structure · Reaction · Disciplined Trader</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="compare-shared">
+      <div class="label">Shared Principles</div>
+      <div class="content">XAUUSD (Gold) only · No Martingale / Grid / Averaging Down · Long-term stability · Disciplined execution</div>
+    </div>
+
+    <blockquote>GoldWave behaves like an "AI goalkeeper who reads sentiment and environment,"<br>while AXIO GOLD behaves like "a disciplined trader who watches structure, reaction, and location."</blockquote>
+  </section>
+
+  <!-- ===== VI. TMGM Partnership ===== -->
+  <section>
+    <h2 class="section-title">VI. TMGM Official Partnership · Exclusive Benefits</h2>
+
+    <div class="partnership-block">
+      <h3>Dual Benefits · Exclusively for New TMGM Clients</h3>
+      <p>Based on the stable testing performance of both EAs on the TMGM platform, our team has entered into an official partnership with <strong>TMGM</strong>. Clients who open a TMGM account through the link below and run our EAs are entitled to the following exclusive benefits:</p>
+
+      <div class="benefits-grid">
+        <div class="benefit-item">
+          <div class="label">BENEFIT · 01 · EA Discount</div>
+          <div class="value">USD 300 OFF</div>
+          <div class="desc">Open a TMGM account and run any of our EAs to receive an instant <strong>USD 300 discount</strong>.</div>
+        </div>
+        <div class="benefit-item">
+          <div class="label">BENEFIT · 02 · Free NY VPS</div>
+          <div class="value">NY VPS · FREE</div>
+          <div class="desc">Deposit <strong>over USD 3,000</strong> with TMGM to receive a <strong>free New York-based Forex VPS</strong>, ensuring 24/5 EA stability.</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:36px;">Final Price After Discount</h3>
+      <div class="pricing-row">
+        <div class="price-card">
+          <div class="name">GoldWave (AI Adaptive)</div>
+          <div class="original">Original USD 999</div>
+          <div class="discount">USD 699</div>
+          <div class="savings">— SAVE USD 300 —</div>
+          <div class="note">Exclusive to TMGM partner-link registrations</div>
+        </div>
+        <div class="price-card">
+          <div class="name">AXIO GOLD (Market Structure)</div>
+          <div class="original">Original USD 699</div>
+          <div class="discount">USD 399</div>
+          <div class="savings">— SAVE USD 300 —</div>
+          <div class="note">Exclusive to TMGM partner-link registrations</div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:34px;">
+        <a class="cta-btn" href="https://portal.tmgm.com/register?node=Mjg4NTQ1&language=en" target="_blank" rel="noopener">
+          OPEN TMGM ACCOUNT · CLAIM YOUR DISCOUNT
+        </a>
+        <a class="cta-link" href="https://portal.tmgm.com/register?node=Mjg4NTQ1&language=en" target="_blank" rel="noopener">
+          https://portal.tmgm.com/register?node=Mjg4NTQ1&amp;language=en
+        </a>
+      </div>
+
+      <p style="margin-top:26px; font-size:12px; color: var(--text-muted); letter-spacing: 0.5px;">
+        * Discount applies only to TMGM accounts opened through the exclusive link above. The VPS benefit requires a minimum USD 3,000 deposit. Final details are subject to the partnership terms.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== VII. Why TMGM ===== -->
+  <section>
+    <h2 class="section-title">VII. Why These EAs Perform Most Stable on TMGM</h2>
+    <p>The performance of both EAs is highly correlated with the execution environment of the platform. TMGM provides a stable execution foundation for logic-driven EAs across three critical dimensions:</p>
+
+    <h3>7.1 Latency</h3>
+    <p>EAs operating on M1 timeframes are highly sensitive to real-time market conditions and require fast order triggering and server response.</p>
+    <ul>
+      <li>TMGM's server architecture is well-suited for EA-driven automated trading</li>
+      <li>Paired with a New York VPS (provided free under our partnership program), latency is reduced to a controllable level</li>
+      <li>Low latency means:
+        <ul>
+          <li>The EA's entry logic is less likely to deviate due to "stale" signals</li>
+          <li>Exit logic (TP / SL / internal management) executes closer to designed triggers</li>
+          <li>Live behavior more closely tracks the MQL5 verified signal</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>7.2 Spread Cost</h3>
+    <div class="card featured">
+      <p style="margin-top:0;">Both EAs are designed to be <strong>spread-insensitive</strong> — they do not depend on extremely low spreads to extract profit:</p>
+      <ul style="margin-bottom:0;">
+        <li>Recommended operating spread: <strong>below 0.4</strong> (in gold quote units)</li>
+        <li>System logic tolerates normal market-driven spread widening</li>
+        <li>Entries and exits do not rely on "the last few pips" of marginal arbitrage</li>
+        <li>As a result, reasonable spread costs do not erode the EA's profit pathway</li>
+      </ul>
+    </div>
+    <p>This means clients running these EAs on TMGM <strong>do not need to chase "ultra-low spreads"</strong>. As long as the spread stays within the recommended range, the systems perform as designed.</p>
+
+    <h3>7.3 Slippage</h3>
+    <p>EA stability is most easily disrupted by unexpected slippage. Here's how both EAs behave in TMGM's environment:</p>
+    <ul>
+      <li>TMGM's execution channels deliver consistent fill quality under normal market conditions</li>
+      <li>Neither EA uses aggressive market-chasing entries, reducing slippage caused by rushed orders</li>
+      <li>GoldWave's news filter proactively avoids high-slippage windows</li>
+      <li>AXIO GOLD's structural filter avoids participation when structure is unclear or liquidity is unstable</li>
+    </ul>
+
+    <h3>7.4 Combined Conclusion</h3>
+    <blockquote>Controlled latency + Spread-insensitive design (recommended &lt; 0.4) + Stable slippage<br>= Live EA behavior aligned with the designed logic.</blockquote>
+    <p>This is precisely why both EAs are able to closely track the trajectory of the live MQL5 signal when running on TMGM accounts.</p>
+  </section>
+
+  <!-- ===== VIII. Risk ===== -->
+  <section>
+    <h2 class="section-title">VIII. Risk Disclosure & Realistic Return Expectations</h2>
+
+    <h3>8.1 Realistic Risk Disclosure</h3>
+    <div class="card warning">
+      <ul style="margin:0;">
+        <li>No automated trading system can <strong>guarantee profit</strong></li>
+        <li>Past performance <strong>does not guarantee future results</strong></li>
+        <li>Drawdowns, losing streaks, and choppy periods are a normal part of live trading</li>
+        <li>Differences in broker conditions, spread, execution, and VPS environment may cause individual results to vary</li>
+        <li>Always test thoroughly on a demo account and understand the system's logic and risk profile before going live</li>
+      </ul>
+    </div>
+
+    <h3>8.2 Realistic Return Expectations: Long-Term Discipline, Not Quick Profit</h3>
+    <p>Our team <strong>does not promise</strong> any of the following: doubling capital monthly, overnight wealth, zero losses, 100% win rate, or any "guaranteed profit" myth.</p>
+
+    <p>What is realistic:</p>
+    <ul>
+      <li>Treat trading as a <strong>long-term compounding process</strong>, not a short-term gambling round</li>
+      <li>Accept that "not trading" is sometimes part of the strategy</li>
+      <li>Accept that "necessary drawdowns" are the price of system stability</li>
+      <li>Aim for <strong>risk-adjusted long-term performance</strong>, not extreme absolute returns</li>
+      <li>Capital preservation comes before return amplification</li>
+    </ul>
+
+    <h3>8.3 Suitable Trader Profile</h3>
+    <div class="pricing-row">
+      <div class="card" style="text-align:left;">
+        <h4 style="margin-top:0; color: var(--tmgm-green);">✓ Suitable Traders</h4>
+        <ul style="margin-bottom:0;">
+          <li>Value risk control more than trading frequency</li>
+          <li>Can accept waiting periods and drawdowns</li>
+          <li>Prefer explainable, rule-based automated systems</li>
+          <li>Hold a long-term, disciplined view of the market</li>
+          <li>Approach trading as account stewardship, not gambling</li>
+        </ul>
+      </div>
+      <div class="card" style="text-align:left;">
+        <h4 style="margin-top:0; color: var(--tmgm-red);">✗ Unsuitable Traders</h4>
+        <ul style="margin-bottom:0;">
+          <li>Seeking quick, explosive returns</li>
+          <li>Unable to accept any drawdown</li>
+          <li>Tend to frequently intervene with the EA manually</li>
+          <li>Rely on backtest curves as the sole basis for trust</li>
+          <li>Emotionally reactive to short-term volatility</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IX. Closing ===== -->
+  <section>
+    <h2 class="section-title">IX. Closing Notes</h2>
+    <p>GoldWave and AXIO GOLD do not exist to chase a beautiful historical curve. They are built to participate in the market <strong>under real conditions, paired with a stable execution environment such as TMGM</strong> — with discipline, restraint, and structure.</p>
+    <p>Their goal is not to create short-term miracles, but to protect the long-term vitality of the account through filtering, risk control, and self-restraint.</p>
+    <blockquote>True stability is never about "always winning,"<br>but about "staying rational under uncertainty."</blockquote>
+
+    <div style="text-align:center; margin-top:44px;">
+      <a class="cta-btn" href="https://portal.tmgm.com/register?node=Mjg4NTQ1&language=en" target="_blank" rel="noopener">
+        OPEN TMGM ACCOUNT · CLAIM USD 300 OFF
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <div class="footer">
+    <p><span class="accent-line"></span><strong style="letter-spacing:3px; color: var(--text-muted);">RISK DISCLAIMER</strong><span class="accent-line"></span></p>
+    <p class="disclaimer">
+      Trading involves risk. No automated trading system can guarantee profits. Past performance does not guarantee future results.
+      This report is provided for informational purposes only and does not constitute investment advice or any profit guarantee.
+      Please fully understand the system's logic and risk characteristics, and complete thorough demo testing before using it on a live account.
+      Trade carefully and make independent judgments based on your personal risk tolerance.
+    </p>
+    <p style="margin-top:22px; letter-spacing:1px; font-size:11px;">© 2026 · GoldWave &amp; AXIO GOLD EA · In partnership with TMGM</p>
+  </div>
+
+</div>
+
+</body>
+</html>
